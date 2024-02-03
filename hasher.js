@@ -1,0 +1,24 @@
+function mimcHash(inputArray, rounds) {
+    const p = 100000000003; // Prime number used in MiMC
+    let state = 0;
+  
+    function mimcRound(x, k) {
+      return (x ** 3 + k) % p;
+    }
+  
+    for (let round = 0; round < rounds; round++) {
+      for (let i = 0; i < inputArray.length; i++) {
+        state = mimcRound(state + inputArray[i], i);
+      }
+    }
+  
+    return state;
+  }
+  
+  // Example usage
+  const inputArray = [167500724275085500, -75773061528237100, 1850829040540279, -103484346308032750, 94175331486456380, 246049498246919140, 1318394902860690, 11987146360941220, 136181688351253330, 59508239676417000, -67043319253099256, 90133662832358110, 16789806918078340, 63126882311250730, 141382561329559250, 88932640421826100, 23266312524432760, 25108197382717340, -60265050662040900, -24002995403959380, -8782400985227670, 7656215276388829, 33838617811706490, 158365832466526300, -97048613484718560, 106860090735453200, -23153037511684860, -20275092783534750];
+  const rounds = 220;
+  
+  const hashResult = mimcHash(inputArray, rounds);
+  console.log("MiMC Hash:", hashResult);
+  
